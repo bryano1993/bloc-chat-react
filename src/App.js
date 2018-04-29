@@ -17,5 +17,5 @@ class App extends Component {
     );
   }
 }
-//Checkpoint: Chat app Introduction
+//Checkpoint 1: Introduction
 export default App;
