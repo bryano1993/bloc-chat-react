@@ -40,12 +40,11 @@ class RoomList extends Component {
       <div>
         {this.state.rooms.map((room, key) => (
           <div key={room.key}>
-            <h1>{room.name}</h1>
+            <h3>{room.name}</h3>
           </div>
         ))}
         <form onSubmit={e => this.handleSubmit(e)}>
           <label>
-            New Room:
             <input
               type="text"
               name="name"
@@ -53,7 +52,7 @@ class RoomList extends Component {
               onChange={e => this.handleChange(e)}
             />
           </label>
-          <input type="submit" value="Submit" />
+          <input type="submit" className="btn btn-info" value="New Room" />
         </form>
       </div>
     );
