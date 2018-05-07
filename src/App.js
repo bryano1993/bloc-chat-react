@@ -16,27 +16,37 @@ var config = {
 firebase.initializeApp(config);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeRoom: ""
+    };
+  }
+
+  currentRoom = room => {
+    this.setState({ activeRoom: room });
+  };
+
   render() {
+    const revealMessage = this.state.activeRoom;
     return (
       <div className="container-fluid">
         <div className="row content">
           <div className="col-sm-4 sidenav">
             <div className="App">
               <h1>Bloc Chat</h1>
-              <RoomList firebase={firebase} />
-              <MessageList firebase={firebase} />
+              <h3>{this.state.activeRoom.name || "Pick a room"}</h3>
+              <RoomList firebase={firebase} currentRoom={this.currentRoom} />
             </div>
           </div>
           <div className="col-sm-8">
-            <div className="fa-10x">
-              <i className="far fa-square fa-spin" />
-              <i className="fas fa-square fa-spin" />
-              <i className="far fa-square fa-spin" />
-              <i className="fas fa-square fa-spin" />
-              <i className="far fa-square fa-spin" />
-              <i className="fas fa-square fa-spin" />
-              <i className="far fa-square fa-spin" />
-            </div>
+            <h3>Messages</h3>
+            {revealMessage ? (
+              <MessageList
+                firebase={firebase}
+                activeRoom={this.state.activeRoom}
+              />
+            ) : null}
           </div>
         </div>
       </div>

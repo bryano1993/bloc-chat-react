@@ -3,7 +3,6 @@ import React, { Component } from "react";
 class RoomList extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       rooms: [],
       newRoomName: ""
@@ -35,25 +34,34 @@ class RoomList extends Component {
     this.setState({ newRoomName: "" });
   }
 
+  chooseRoom(room) {
+    this.props.currentRoom(room);
+  }
+
   render() {
+    const roomIndex = this.state.rooms.map((room, key) => (
+      <h4 key={room.key} onClick={e => this.chooseRoom(room)}>
+        {room.name}
+      </h4>
+    ));
+    const roomDisplay = (
+      <form onSubmit={e => this.handleSubmit(e)}>
+        <label>
+          <input
+            type="text"
+            name="name"
+            value={this.state.newRoomName}
+            onChange={e => this.handleChange(e)}
+          />
+        </label>
+        <input type="submit" className="btn btn-info" value="New Room" />
+      </form>
+    );
+
     return (
       <div>
-        {this.state.rooms.map((room, key) => (
-          <div key={room.key}>
-            <h3>{room.name}</h3>
-          </div>
-        ))}
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <label>
-            <input
-              type="text"
-              name="name"
-              value={this.state.newRoomName}
-              onChange={e => this.handleChange(e)}
-            />
-          </label>
-          <input type="submit" className="btn btn-info" value="New Room" />
-        </form>
+        <div>{roomDisplay}</div>
+        <div>{roomIndex}</div>
       </div>
     );
   }
